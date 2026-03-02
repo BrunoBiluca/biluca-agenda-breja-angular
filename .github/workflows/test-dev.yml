@@ -23,22 +23,3 @@ jobs:
       - name: Rodar testes
         run: npm run test
         # Importante: npm test deve retornar 0 se passar, 1 se falhar
-
-      - name: Notificar resultado dos testes
-        if: always()
-        uses: actions/github-script@v7
-        with:
-          script: |
-            const status = '${{ job.status }}';
-            const sha = context.payload.after;
-
-            // Cria um status check no commit para visibilidade
-            await github.rest.repos.createCommitStatus({
-              owner: context.repo.owner,
-              repo: context.repo.repo,
-              sha: sha,
-              state: status === 'success' ? 'success' : 'failure',
-              context: 'Tests (DEV)',
-              description: status === 'success' ? 'Todos os testes passaram' : 'Testes falharam',
-              target_url: `https://github.com/${context.repo.owner}/${context.repo.repo}/actions/runs/${context.runId}`
-            });
