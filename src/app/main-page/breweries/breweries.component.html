@@ -4,7 +4,7 @@
   class="grid max-w-full grid-cols-1 gap-4 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4"
   role="list"
 >
-  @for (b of breweries; track $index) {
+  @for (b of breweries(); track $index) {
     <div
       class="bg-white rounded-lg shadow-md mb-4 hover:shadow-lg transition-shadow cursor-pointer"
       role="listitem"
