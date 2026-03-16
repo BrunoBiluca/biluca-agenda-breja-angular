@@ -1,6 +1,8 @@
 import { ComponentFixture, TestBed } from '@angular/core/testing';
 
 import { MainPageComponent } from './main-page.component';
+import { BreweriesData } from '@core/breweries/breweries-data.interface';
+import { MemoryBreweriesData } from '@testing/integrations/memory-breweries-data/memory-breweries-data';
 
 describe('MainPageComponent', () => {
   let component: MainPageComponent;
@@ -8,9 +10,9 @@ describe('MainPageComponent', () => {
 
   beforeEach(async () => {
     TestBed.configureTestingModule({
-      imports: [ MainPageComponent ]
-    })
-    .compileComponents();
+      imports: [MainPageComponent],
+      providers: [{ provide: BreweriesData, useClass: MemoryBreweriesData }],
+    }).compileComponents();
   });
 
   beforeEach(() => {

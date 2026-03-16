@@ -7,7 +7,7 @@ import { Brewery } from '@core/breweries/brewery.model';
   templateUrl: './breweries.component.html',
 })
 export class BreweriesComponent implements OnInit {
-  breweries = signal<Brewery[]>([]);
+  breweries = signal<Brewery[] | undefined>(undefined);
 
   breweriesService = inject(BreweriesData);
 
