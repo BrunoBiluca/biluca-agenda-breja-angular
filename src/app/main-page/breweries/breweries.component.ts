@@ -12,10 +12,26 @@ export class BreweriesComponent implements OnInit {
   breweries = signal<Brewery[] | undefined>(undefined);
 
   breweriesService = inject(BreweriesData);
+  page = signal<number>(1);
+  loadingMore = signal<boolean>(false);
+  hasMore = signal<boolean>(true);
 
   ngOnInit() {
-    this.breweriesService.getPage(1).then((breweries) => {
+    this.breweriesService.getPage(this.page()).then((breweries) => {
       this.breweries.set(breweries);
+    });
+  }
+
+  loadMore() {
+    this.page.set(this.page() + 1);
+    this.loadingMore.set(true);
+    this.breweriesService.getPage(this.page()).then((breweries) => {
+      this.loadingMore.set(false);
+      if (breweries.length === 0) {
+        this.hasMore.set(breweries.length === 0);
+        return;
+      }
+      this.breweries.set([...this.breweries()!, ...breweries]);
     });
   }
 }
