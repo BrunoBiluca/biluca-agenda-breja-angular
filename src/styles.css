@@ -7,13 +7,24 @@
 
 @import '@spartan-ng/brain/hlm-tailwind-preset.css';
 
+@theme {
+  --color-white: #ffffff;
+  --color-gray-100: #f6f6f6;
+  --color-gray-200: #e5e7eb;
+  --color-gray-500: #6b7280;
+  --color-black: #000000;
+
+  --color-orange-base: #fbbf24;
+  --color-orange-light: #fdd97c;
+  --color-red-base: #ef4444;
+  --color-green-base: #22c55e;
+  --color-blue-base: #3b82f6;
+
+  --font-sans: 'Cairo', sans-serif;
+}
+
 :root {
   color-scheme: light;
-
-  --font-sans:
-    -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, 'Helvetica Neue', Arial, 'Noto Sans',
-    sans-serif, 'Apple Color Emoji', 'Segoe UI Emoji', 'Segoe UI Symbol', 'Noto Color Emoji';
-
   --radius: 0.625rem;
   --background: oklch(1 0 0);
   --foreground: oklch(0.141 0.005 285.823);
@@ -80,5 +91,12 @@
   }
   body {
     @apply bg-background text-foreground;
+  }
+
+  h1 {
+    @apply text-2xl font-bold text-black;
+  }
+  h2 {
+    @apply text-xl font-semibold text-black;
   }
 }

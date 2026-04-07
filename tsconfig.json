@@ -21,7 +21,12 @@
       "@testing/*": ["./src/testing/*"],
       "@common/*": ["./src/common/*"],
       "@ui/card": ["./src/common/ui/card/src/index.ts"],
-      "@ui/utils": ["./src/common/ui/utils/src/index.ts"]
+      "@ui/utils": ["./src/common/ui/utils/src/index.ts"],
+      "@ui/button": ["./src/common/ui/button/src/index.ts"],
+      "@ui/field": ["./src/common/ui/field/src/index.ts"],
+      "@ui/label": ["./src/common/ui/label/src/index.ts"],
+      "@ui/separator": ["./src/common/ui/separator/src/index.ts"],
+      "@ui/input": ["./src/common/ui/input/src/index.ts"]
     }
   },
   "angularCompilerOptions": {
