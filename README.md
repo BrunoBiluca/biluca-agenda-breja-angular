@@ -25,7 +25,13 @@ A fim de padronizar o ambiente de desenvolvimento e evitar problemas de compatib
 Utilizando Toolbox:
 
 ```shell
-toolbox create --distro ubuntu --release 24.04 react-dev-ubuntu
+toolbox create --distro ubuntu --release 24.04 angular-dev-ubuntu
+```
+
+Utilizando Distrobox:
+
+```shell
+distrobox create --image ubuntu-toolbox:24.04 --name angular-dev-ubuntu
 ```
 
 Para a configuração do ambiente é necessário executar os seguintes comandos:
