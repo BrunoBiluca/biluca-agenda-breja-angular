@@ -6,6 +6,9 @@ import { BreweriesData } from '@core/breweries/breweries-data.interface';
 import { MemoryBreweriesData } from '@testing/integrations/memory-breweries-data/memory-breweries-data';
 import { isStandalone } from '@testing/standalone-mode/standalone-mode';
 import { OpenBreweryDbService } from 'src/integrations/open-brewery-db/open-brewery-db.service';
+import { AuthService } from '../auth/services/auth.service';
+import { LocalAuthService } from '@testing/standalone-mode/services/local-auth.service';
+import { SupabaseAuthService } from 'src/integrations/supabase/supabase-auth.service';
 
 export const appConfig: ApplicationConfig = {
   providers: [
@@ -15,5 +18,6 @@ export const appConfig: ApplicationConfig = {
       provide: BreweriesData,
       useClass: isStandalone() ? MemoryBreweriesData : OpenBreweryDbService,
     },
+    { provide: AuthService, useClass: isStandalone() ? LocalAuthService : SupabaseAuthService },
   ],
 };

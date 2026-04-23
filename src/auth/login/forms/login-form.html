@@ -1,32 +1,30 @@
-<form class="space-y-4">
+<form [formGroup]="loginForm" (ngSubmit)="onSubmit()" class="space-y-4">
   <fieldset hlmFieldSet>
     <div hlmFieldGroup>
       <div hlmField>
         <label hlmFieldLabel for="email">E-mail</label>
-        <input
-          hlmInput
-          id="email"
-          type="text"
-          placeholder="john_doe_99"
-          class="border-[#e6e0db] text-[#8a6d4b]"
-        />
-        <hlm-field-error>Choose another username.</hlm-field-error>
+        <input hlmInput id="email" type="text" formControlName="email" class="border-[#e6e0db] text-[#8a6d4b]" />
+        @if (loginForm.get('email')?.hasError('required') && loginForm.get('email')?.touched) {
+        <hlm-field-error>Email é obrigatório</hlm-field-error>
+        }
+        @if (loginForm.get('email')?.hasError('email') && loginForm.get('email')?.touched) {
+        <hlm-field-error>Email inválido</hlm-field-error>
+        }
       </div>
       <div hlmField>
         <label hlmFieldLabel for="password">Senha</label>
-        <input
-          hlmInput
-          id="password"
-          type="text"
-          placeholder="john_doe_99"
-          class="border-[#e6e0db] text-[#8a6d4b]"
-        />
-        <hlm-field-error>Choose another username.</hlm-field-error>
+        <input hlmInput id="password" type="password" formControlName="password"
+          class="border-[#e6e0db] text-[#8a6d4b]" />
+        @if (loginForm.get('password')?.hasError('required') && loginForm.get('password')?.touched) {
+        <hlm-field-error>Senha é obrigatória</hlm-field-error>
+        }
       </div>
     </div>
   </fieldset>
-  <button hlmBtn type="submit" size="lg" class="w-full text-base disabled:opacity-50">
+  <button hlmBtn type="submit" [disabled]="loginForm.invalid" size="lg" class="w-full text-base disabled:opacity-50">
     Entrar
   </button>
-  <!-- {error && <FieldError>{error}</FieldError>} -->
+  @if (submitMessage()) {
+  <hlm-field-error class="text-lg">{{ submitMessage() }}</hlm-field-error>
+  }
 </form>
