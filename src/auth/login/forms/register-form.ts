@@ -1,4 +1,4 @@
-import { Component, inject, output, signal, type OnInit } from '@angular/core';
+import { Component, inject, signal, type OnInit } from '@angular/core';
 import { HlmButton } from '@ui/button/src';
 import { HlmFieldError, HlmFieldLabel, HlmField, HlmFieldSet, HlmFieldGroup } from '@ui/field/src';
 import { HlmInput } from '@ui/input/src';
