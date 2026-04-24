@@ -2,11 +2,12 @@ import { Component, inject, OnInit, signal } from '@angular/core';
 import { BreweriesData } from '@core/breweries/breweries-data.interface';
 import { Brewery } from '@core/breweries/brewery.model';
 import { HlmCardImports } from '@ui/card/src';
+import { BreweryItem } from './brewery-item';
 
 @Component({
   selector: 'app-breweries',
   templateUrl: './breweries.component.html',
-  imports: [HlmCardImports],
+  imports: [HlmCardImports, BreweryItem],
 })
 export class BreweriesComponent implements OnInit {
   breweries = signal<Brewery[] | undefined>(undefined);
