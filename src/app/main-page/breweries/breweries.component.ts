@@ -2,7 +2,7 @@ import { Component, inject, OnInit, signal } from '@angular/core';
 import { BreweriesData } from '@core/breweries/breweries-data.interface';
 import { Brewery } from '@core/breweries/brewery.model';
 import { HlmCardImports } from '@ui/card/src';
-import { BreweryItem } from './brewery-item';
+import { BreweryItem } from './brewery-item/brewery-item';
 
 @Component({
   selector: 'app-breweries',
