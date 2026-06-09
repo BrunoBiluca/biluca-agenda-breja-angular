@@ -5,14 +5,16 @@
       <span class="text-orange-base">{{ getLoggedUser()?.name }}</span>
       ?
     </h1>
-    <button (click)="logout()"
-      class="flex items-center gap-2 rounded-lg border border-gray-500 bg-gray-200 px-3 py-2 transition hover:cursor-pointer hover:bg-gray-100">
+    <button
+      (click)="logout()"
+      class="flex items-center gap-2 rounded-lg border border-gray-500 bg-gray-200 px-3 py-2 transition hover:cursor-pointer hover:bg-gray-100"
+    >
       <ng-icon hlm size="sm" name="lucideLogOut" />
       Sair
     </button>
   </header>
   <section id="schedule" class="my-4">
-    [ScheduleList]
+    <app-schedule-list />
   </section>
   <section id="breweries" class="my-4">
     <app-breweries />

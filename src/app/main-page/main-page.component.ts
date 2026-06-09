@@ -5,11 +5,12 @@ import { HlmIcon } from '@ui/icon/src';
 import { lucideLogOut } from '@ng-icons/lucide';
 import { AuthService } from 'src/auth/services/auth.service';
 import { Router, RouterOutlet } from '@angular/router';
+import { ScheduleList } from '@app/schedule-list/schedule-list';
 
 @Component({
   selector: 'app-main-page',
   templateUrl: './main-page.component.html',
-  imports: [BreweriesComponent, NgIcon, HlmIcon, RouterOutlet],
+  imports: [BreweriesComponent, NgIcon, HlmIcon, RouterOutlet, ScheduleList],
   providers: [provideIcons({ lucideLogOut })],
 })
 export class MainPageComponent implements OnInit {
