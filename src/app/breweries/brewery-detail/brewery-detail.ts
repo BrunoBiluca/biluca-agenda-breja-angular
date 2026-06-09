@@ -1,13 +1,20 @@
 import { Component, inject, signal, type OnInit, type OnDestroy } from '@angular/core';
 import { ActivatedRoute, Router } from '@angular/router';
+import { ScheduleVisitForm } from '@app/schedule-list/form/schedule-visit-form';
 import { BreweriesData } from '@core/breweries/breweries-data.interface';
 import type { Brewery } from '@core/breweries/brewery.model';
+import { NgIcon, provideIcons } from '@ng-icons/core';
+import { lucideMapPin, lucideX } from '@ng-icons/lucide';
 import { HlmCard, HlmCardHeader, HlmCardFooter } from '@ui/card/src';
+import { HlmIcon } from '@ui/icon/src';
 import { switchMap, Subscription, from, catchError, EMPTY } from 'rxjs';
+
+export type ModalContentProps = 'brewery-detail' | 'schedule-visit-form';
 
 @Component({
   selector: 'app-brewery-detail',
-  imports: [HlmCard, HlmCardHeader, HlmCardFooter],
+  imports: [HlmCard, HlmCardHeader, HlmCardFooter, NgIcon, HlmIcon, ScheduleVisitForm],
+  providers: [provideIcons({ lucideX, lucideMapPin })],
   templateUrl: './brewery-detail.html',
 })
 export class BreweryDetail implements OnInit, OnDestroy {
@@ -18,6 +25,8 @@ export class BreweryDetail implements OnInit, OnDestroy {
 
   brewery = signal<Brewery | undefined>(undefined);
   private _sub?: Subscription;
+
+  modalContent = signal<ModalContentProps>('brewery-detail');
 
   ngOnInit() {
     this._sub = this.route.params
@@ -38,6 +47,10 @@ export class BreweryDetail implements OnInit, OnDestroy {
 
   ngOnDestroy() {
     this._sub?.unsubscribe();
+  }
+
+  handleModalChange(newContent: ModalContentProps) {
+    this.modalContent.set(newContent);
   }
 
   closeModal() {

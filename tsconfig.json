@@ -27,7 +27,8 @@
       "@ui/label": ["./src/common/ui/label/src/index.ts"],
       "@ui/separator": ["./src/common/ui/separator/src/index.ts"],
       "@ui/icon": ["./src/common/ui/icon/src/index.ts"],
-      "@ui/input": ["./src/common/ui/input/src/index.ts"]
+      "@ui/input": ["./src/common/ui/input/src/index.ts"],
+      "@ui/textarea": ["./src/common/ui/textarea/src/index.ts"]
     }
   },
   "angularCompilerOptions": {

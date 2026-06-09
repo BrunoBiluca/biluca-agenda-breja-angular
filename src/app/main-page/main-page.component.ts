@@ -1,5 +1,5 @@
 import { Component, OnInit, inject } from '@angular/core';
-import { BreweriesComponent } from './breweries/breweries.component';
+import { BreweriesComponent } from '../breweries/breweries.component';
 import { NgIcon, provideIcons } from '@ng-icons/core';
 import { HlmIcon } from '@ui/icon/src';
 import { lucideLogOut } from '@ng-icons/lucide';
