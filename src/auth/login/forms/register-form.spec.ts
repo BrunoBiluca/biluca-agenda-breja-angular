@@ -1,6 +1,7 @@
 import { ComponentFixture, TestBed } from '@angular/core/testing';
 import { RegisterForm } from './register-form';
 import { RouterModule } from '@angular/router';
+import { AuthService } from 'src/auth/services/auth.service';
 
 describe('RegisterForm', () => {
   let component: RegisterForm;
@@ -9,7 +10,11 @@ describe('RegisterForm', () => {
   beforeEach(async () => {
     TestBed.configureTestingModule({
       imports: [RegisterForm, RouterModule.forRoot([])],
-      providers: [],
+      providers: [
+        {
+          provide: AuthService,
+        },
+      ],
     }).compileComponents();
   });
 

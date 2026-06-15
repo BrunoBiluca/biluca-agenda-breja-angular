@@ -27,7 +27,7 @@ export class MemoryBreweriesData extends BreweriesData {
     defaultSetting(getBreweriesFailedFirstTimeKey, false);
     defaultSetting(getBreweriesServerErrorKey, false);
     const count = getSettingNumber(breweriesCountKey);
-    this.breweries = Array.from({ length: count }, mockBreweriesData);
+    this.breweries = Array.from({ length: count }, mockBreweryData);
   }
 
   get(breweryId: string): Promise<Brewery> {
@@ -58,7 +58,7 @@ export class MemoryBreweriesData extends BreweriesData {
   }
 }
 
-function mockBreweriesData(): Brewery {
+export function mockBreweryData(): Brewery {
   const id = crypto.randomUUID();
   const name = `Bar do ${id.split('-')[0]}`;
   return {

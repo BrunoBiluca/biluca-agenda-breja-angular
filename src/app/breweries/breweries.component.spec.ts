@@ -4,6 +4,7 @@ import { BreweriesComponent } from './breweries.component';
 import { BreweriesData } from '@core/breweries/breweries-data.interface';
 import { MemoryBreweriesData } from '@testing/integrations/memory-breweries-data/memory-breweries-data';
 import { storeSetting } from '@testing/standalone-mode/standalone-mode';
+import { provideRouter } from '@angular/router';
 
 describe('BreweriesComponent', () => {
   let component: BreweriesComponent;
@@ -12,7 +13,7 @@ describe('BreweriesComponent', () => {
   beforeEach(async () => {
     await TestBed.configureTestingModule({
       imports: [BreweriesComponent],
-      providers: [{ provide: BreweriesData, useClass: MemoryBreweriesData }],
+      providers: [{ provide: BreweriesData, useClass: MemoryBreweriesData }, provideRouter([])],
     }).compileComponents();
   });
 
@@ -48,7 +49,7 @@ describe('BreweriesComponent', () => {
     expect(loading).not.toBeTruthy();
 
     const breweries = fixture.nativeElement.querySelectorAll('[role="listitem"]');
-    expect(breweries.length).toBe(10);
+    expect(breweries.length).toBe(20);
   });
 
   it('should show message when no breweries are found', async () => {
