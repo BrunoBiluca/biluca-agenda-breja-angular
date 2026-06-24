@@ -3,6 +3,8 @@ import { FormControl, FormGroup, ReactiveFormsModule, Validators } from '@angula
 import { ActivatedRoute, Router } from '@angular/router';
 import type { ModalContentProps } from '@app/breweries/brewery-detail/brewery-detail';
 import type { Brewery } from '@core/breweries/brewery.model';
+import { BreweryScheduleData } from '@core/brewery-schedule/brewery-schedule-data';
+import { BreweryScheduleRequest } from '@core/brewery-schedule/models/brewery-schedule-request.model';
 import { NgIcon, provideIcons } from '@ng-icons/core';
 import { lucideX } from '@ng-icons/lucide';
 import { HlmCardFooter, HlmCardHeader } from '@ui/card/src';
@@ -29,8 +31,9 @@ import { HlmInput } from '@ui/input/src';
 })
 export class ScheduleVisitForm implements OnInit {
   scheduleVisitForm!: FormGroup;
-  router = inject(Router);
-  route = inject(ActivatedRoute);
+  _router = inject(Router);
+  _route = inject(ActivatedRoute);
+  _schedules = inject(BreweryScheduleData);
 
   brewery = input.required<Brewery | undefined>();
   modalContent = input.required<ModalContentProps>();
@@ -72,12 +75,18 @@ export class ScheduleVisitForm implements OnInit {
     if (this.scheduleVisitForm.invalid) return;
 
     const { visitDate, guests, observations } = this.scheduleVisitForm.value;
-    console.log('Agendando visita para:', { visitDate, guests, observations });
-
+    const scheduleData = new BreweryScheduleRequest(
+      this.brewery()?.id!,
+      this.brewery()?.name!,
+      new Date(visitDate),
+      guests,
+      observations || '',
+    );
     try {
-      //  chamada API para agendar visita
+      await this._schedules.create(scheduleData);
       this.submitSuccess.set(true);
       this.submitMessage.set('Visita agendada com sucesso!');
+      this._router.navigate(['/']);
     } catch (error) {
       this.submitSuccess.set(false);
       this.submitMessage.set('Erro ao agendar visita: ' + error);
@@ -89,6 +98,6 @@ export class ScheduleVisitForm implements OnInit {
   }
 
   closeModal() {
-    this.router.navigate(['/'], { relativeTo: this.route });
+    this._router.navigate(['/'], { relativeTo: this._route });
   }
 }

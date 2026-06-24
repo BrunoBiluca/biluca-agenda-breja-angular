@@ -1,16 +1,18 @@
 <hlm-card class="flex flex-row gap-4 p-4">
   <hlm-card-header class="flex flex-1 flex-col gap-4 p-0">
     <div class="flex items-center justify-start gap-3">
-      <h4 class="text-xl font-bold">item.breweryName</h4>
-      <span class="bg-orange-light rounded-full px-4 py-2 text-sm font-normal"> [data] </span>
+      <h4 class="text-xl font-bold">{{ schedule().breweryName }}</h4>
+      <span class="bg-orange-light rounded-full px-4 py-2 text-sm font-normal">{{
+        schedule().visitDate | date: 'dd/MM/yyyy' : '-0300'
+      }}</span>
     </div>
     <div hlmCardDescription class="flex flex-col gap-2 text-base text-gray-500">
-      <div class="people">item.party</div>
-      <div class="notes">item.notes</div>
+      <div class="people">{{ schedule().party.join(', ') }}</div>
+      <div class="notes">{{ schedule().notes }}</div>
     </div>
   </hlm-card-header>
   <hlm-card-footer>
-    <button class="cursor-pointer transition">
+    <button class="cursor-pointer transition" (click)="cancelSchedule()">
       <ng-icon
         name="lucideTrash2"
         size="24"

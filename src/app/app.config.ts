@@ -1,4 +1,4 @@
-import { ApplicationConfig, provideBrowserGlobalErrorListeners } from '@angular/core';
+import { ApplicationConfig, provideBrowserGlobalErrorListeners, type inject } from '@angular/core';
 import { provideRouter } from '@angular/router';
 
 import { routes } from './app.routes';
@@ -9,6 +9,9 @@ import { OpenBreweryDbService } from 'src/integrations/open-brewery-db/open-brew
 import { AuthService } from '../auth/services/auth.service';
 import { LocalAuthService } from '@testing/standalone-mode/services/local-auth.service';
 import { SupabaseAuthService } from 'src/integrations/supabase/supabase-auth.service';
+import { BreweryScheduleData } from '@core/brewery-schedule/brewery-schedule-data';
+import { SupabaseBreweryScheduleData } from 'src/integrations/supabase/supabase-brewery-schedule-data';
+import { MemoryScheduleData } from '@testing/integrations/memory-schedule-data/memory-schedule-data';
 
 export const appConfig: ApplicationConfig = {
   providers: [
@@ -19,5 +22,9 @@ export const appConfig: ApplicationConfig = {
       useClass: isStandalone() ? MemoryBreweriesData : OpenBreweryDbService,
     },
     { provide: AuthService, useClass: isStandalone() ? LocalAuthService : SupabaseAuthService },
+    {
+      provide: BreweryScheduleData,
+      useClass: isStandalone() ? MemoryScheduleData : SupabaseBreweryScheduleData,
+    },
   ],
 };
