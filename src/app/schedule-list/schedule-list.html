@@ -1,0 +1,22 @@
+<h2 class="mb-3">Visitas agendadas</h2>
+<div class="schedule-list flex flex-col gap-4">
+  @if (loading()) {
+    <div class="flex h-50 flex-col items-center justify-center">
+      <i class="ph ph-circle-notch animate-spin"></i>
+      <span class="mb-3 text-center text-sm text-gray-500">
+        Carregando agendamento de visitas...
+      </span>
+    </div>
+  }
+  @if (!loading() && schedule().length === 0) {
+    <div class="flex h-50 flex-col items-center justify-center">
+      <p class="mb-3 text-center text-sm text-gray-500 italic">Nenhuma visita agendada</p>
+    </div>
+  }
+
+  @if (!loading() && schedule().length > 0) {
+    @for (sch of schedule(); track sch.id) {
+      <app-schedule-item [schedule]="sch" />
+    }
+  }
+</div>

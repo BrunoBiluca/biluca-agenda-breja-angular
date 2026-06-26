@@ -1,0 +1,119 @@
+<div class="relative">
+  <button class="absolute top-2 right-2 hover:cursor-pointer" (click)="closeModal()">
+    <ng-icon hlm size="sm" name="lucideX" />
+  </button>
+</div>
+
+<form class="flex flex-col gap-4" [formGroup]="scheduleVisitForm" (ngSubmit)="onSubmit()">
+  <hlm-card-header class="p-6">
+    <h1 class="text-center">
+      Agendar visita à
+      <span class="text-orange-base">{{ brewery()?.name }}</span>
+    </h1>
+
+    <hr class="my-2 border-gray-200" />
+
+    <div hlmField class="mb-1">
+      <label hlmFieldLabel for="visitDate">Data da visita</label>
+      <input
+        hlmInput
+        id="visitDate"
+        formControlName="visitDate"
+        type="date"
+        aria-invalid="{{ scheduleVisitForm.get('visitDate')?.invalid }}"
+        class="focus-visible:ring-[1px] block"
+        required
+      />
+      @if (
+        scheduleVisitForm.get('visitDate')?.hasError('required') &&
+        scheduleVisitForm.get('visitDate')?.touched
+      ) {
+        <hlm-field-error>Data da visita é obrigatória</hlm-field-error>
+      }
+      @if (
+        scheduleVisitForm.get('visitDate')?.hasError('pattern') &&
+        scheduleVisitForm.get('visitDate')?.touched
+      ) {
+        <hlm-field-error>Formato da data inválido</hlm-field-error>
+      }
+    </div>
+    <div hlmField class="mb-1">
+      <label hlmFieldLabel for="guests">Convidados</label>
+      <div class="flex min-h-10 flex-wrap gap-2 rounded-md border p-2">
+        @for (guest of guests(); track $index) {
+          <button
+            type="button"
+            class="inline-flex cursor-pointer items-center rounded-md bg-gray-100 px-2 py-1 text-sm"
+            (click)="removeGuest($index)"
+          >
+            {{ guest }}
+            <span class="ml-2 flex">
+              <ng-icon hlm size="sm" name="lucideX" class="text-red-500" />
+            </span>
+          </button>
+        }
+        <input
+          hlmInput
+          type="text"
+          class="min-w-25 flex-1 bg-transparent outline-none shadow-none border-none"
+          placeholder="Digite e pressione Enter"
+          (keydown.enter)="
+            $event.preventDefault();
+            registerGuest($event.target.value.trim());
+            $event.target.value = ''
+          "
+        />
+        <input type="hidden" id="guests" formControlName="guests" />
+      </div>
+      @if (
+        scheduleVisitForm.get('guests')?.hasError('required') &&
+        scheduleVisitForm.get('guests')?.touched
+      ) {
+        <hlm-field-error>Pelo menos um convidado é obrigatório</hlm-field-error>
+      }
+      <hlm-field-description>
+        Digite e pressione Enter para adicionar um convidado
+      </hlm-field-description>
+    </div>
+    <div hlmField class="mb-1">
+      <label hlmFieldLabel for="observations" class="mb-1"> Observações </label>
+      <textarea
+        hlmTextarea
+        rows="4"
+        id="observations"
+        formControlName="observations"
+        placeholder="Ex: alguma restrição alimentar, etc."
+        class="focus-visible:ring-[1px] rounded-md border p-2"
+      ></textarea>
+      @if (
+        scheduleVisitForm.get('observations')?.hasError('minlength') &&
+        scheduleVisitForm.get('observations')?.touched
+      ) {
+        <hlm-field-error>Pelo menos 10 caracteres são obrigatórios</hlm-field-error>
+      }
+    </div>
+  </hlm-card-header>
+
+  <hlm-card-footer class="flex items-center justify-between p-6">
+    <button
+      hlmBtn
+      type="submit"
+      class="border-orange-base bg-orange-base hover:bg-orange-light flex items-center gap-2 rounded-lg border px-3 py-2 transition hover:cursor-pointer disabled:cursor-not-allowed disabled:opacity-50"
+    >
+      Confirmar agendamento
+    </button>
+    <button
+      hlmBtn
+      type="button"
+      class="flex items-center gap-2 rounded-lg border border-gray-500 bg-gray-200 px-3 py-2 transition hover:cursor-pointer hover:bg-gray-100"
+      (click)="goBackToDetails()"
+    >
+      Voltar
+    </button>
+    @if (submitSuccess()) {
+      <hlm-field-error class="text-green-800 text-lg">{{ submitMessage() }}</hlm-field-error>
+    } @else if (!submitSuccess() && submitMessage()) {
+      <hlm-field-error class="text-lg">{{ submitMessage() }}</hlm-field-error>
+    }
+  </hlm-card-footer>
+</form>

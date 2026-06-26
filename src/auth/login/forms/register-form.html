@@ -1,0 +1,49 @@
+<form [formGroup]="registerForm" (ngSubmit)="onSubmit()" class="space-y-4">
+  <fieldset hlmFieldSet>
+    <div hlmFieldGroup>
+      <div hlmField>
+        <label hlmFieldLabel for="name" class="mb-1">Nome completo</label>
+        <input hlmInput id="name" type="text" formControlName="name" />
+        @if (registerForm.get('name')?.hasError('required') && registerForm.get('name')?.touched) {
+        <hlm-field-error>Nome é obrigatório</hlm-field-error>
+        }
+        @if (registerForm.get('name')?.hasError('minlength') && registerForm.get('name')?.touched) {
+        <hlm-field-error>Nome deve ter pelo menos 3 caracteres</hlm-field-error>
+        }
+      </div>
+      <div hlmField>
+        <label hlmFieldLabel for="email">E-mail</label>
+        <input hlmInput id="email" type="text" formControlName="email" class="border-[#e6e0db] text-[#8a6d4b]" />
+        @if (registerForm.get('email')?.hasError('required') && registerForm.get('email')?.touched) {
+        <hlm-field-error>Email é obrigatório</hlm-field-error>
+        }
+        @if (registerForm.get('email')?.hasError('email') && registerForm.get('email')?.touched) {
+        <hlm-field-error>Email inválido</hlm-field-error>
+        }
+      </div>
+      <div hlmField>
+        <label hlmFieldLabel for="password">Senha</label>
+        <input hlmInput id="password" type="password" (keypress)="getPasswordStrengthMessage($event.target.value)"
+          formControlName="password" class="border-[#e6e0db] text-[#8a6d4b]" />
+        @if (registerForm.get('password')?.hasError('required') && registerForm.get('password')?.touched) {
+        <hlm-field-error>Senha é obrigatória</hlm-field-error>
+        }
+        @if (registerForm.get('password')?.hasError('minlength') && registerForm.get('password')?.touched) {
+        <hlm-field-error>Senha deve ter pelo menos 6 caracteres</hlm-field-error>
+        }
+        @if (passwordStrengthMessage() == 'Fraco' || passwordStrengthMessage() == 'Médio') {
+        <hlm-field-error>Força da senha: {{ passwordStrengthMessage() }}</hlm-field-error>
+        }
+      </div>
+    </div>
+  </fieldset>
+  <button hlmBtn type="submit" size="lg" [disabled]="registerForm.invalid" class="w-full text-base disabled:opacity-50">
+    Criar conta
+  </button>
+  @if (submitSuccess()) {
+  <hlm-field-error class="text-green-800 text-lg">{{ submitMessage() }}</hlm-field-error>
+  }
+  @else if (!submitSuccess() && submitMessage()) {
+  <hlm-field-error class="text-lg">{{ submitMessage() }}</hlm-field-error>
+  }
+</form>
